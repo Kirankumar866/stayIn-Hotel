@@ -2,6 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {NavLink} from "react-bootstrap"
 
+/* navbar */
+
 function NavBar() {
   return (
     <nav className='navbar navbar-expand-lg bg-body-tertiary px-5 shadow mt-5 stickly-top'>
