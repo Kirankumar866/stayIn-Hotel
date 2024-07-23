@@ -122,7 +122,7 @@ function AddRoom() {
                     </div>
                     <div className='d-grid d-md-flex mt-2'>
                         <Link to={"/existingrooms"} className="btn btn-outline-info">Back</Link>
-                        <button className='btn btn-outline-primary ml-5'>Save Room</button>
+                        <button className='btn btn-outline-primary'>Save Room</button>
                     </div>
 
                 </form>

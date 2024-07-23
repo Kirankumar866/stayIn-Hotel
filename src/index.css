@@ -1,6 +1,7 @@
+
 body {
   min-height: 100vh;
-  padding-bottom: 50px;
+  
 }
 .card {
   opacity: 0.9;
@@ -9,6 +10,7 @@ body {
 /* Navigation bar definitions */
  .navbar{
   padding: 0;
+  
  }
  .navbar .navbar-nav .nav-link{
   padding: 1em;
@@ -82,23 +84,25 @@ body {
 
 
 .parallax {
-  background-image: url("./assets/images/parrall.jpg");
+  background-image: url("./assets/steven-van-elk-1CcryZiF2PA-unsplash.jpg");
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 50vh;
+  height: 40vh;
 }
 
 .header {
   position: relative;
   height: 150px;
   background-size: cover;
-  background-image: url("./assets/images/services4.jpg");
+  background-image: url("./assets/christiann-koepke-dQyS2pMYtok-unsplash.jpg");
   background-position: center center;
 }
 .header-title {
   color: #fff;
+  opacity: 0.3;
+  
   font-size: 4rem;
   align-content: center;
 }
@@ -189,7 +193,7 @@ body {
 
 /* The header banner */
 .header-banner {
-  background-image:  url("./assets/images/services-1.jpg");
+  background-image:  url("./assets/valeriia-bugaiova-_pPHgeHz1uk-unsplash.jpg");
    background-size: cover;
   background-position: center;
    position: relative;
