@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { getRoomById } from '../utils/ApiFunction'
 import moment from "moment"
+import { Form, FormControl } from 'react-bootstrap'
+import BookingSummary from './BookingSummary'
 
 const BookingForm = () => {
     const [isValidated, setIsValidated] = useState(false)
@@ -24,8 +26,10 @@ const BookingForm = () => {
         roomPrice: ""
     })
 
+   
     const {roomId} = useParams()
     const navigate = useNavigate()
+    
 
     const getRoomPriceById = async(roomId)=>{
         try {
@@ -51,9 +55,9 @@ const BookingForm = () => {
     const calculatePayment = ()=>{
         const checkInDate = moment(booking.checkInDate)
         const checkOutDate = moment(booking.checkOutDate)
-        const diffInDays = checkOutDate.diff(checkInDate)
+        const diffInDays = checkOutDate.diff(checkInDate,'days')
+        
         const pricePerDay = roomPrice ? roomPrice : 0
-
         return diffInDays * pricePerDay
     }
 
@@ -66,8 +70,8 @@ const BookingForm = () => {
     }
 
     const isCheckOutDateValid = ()=>{
-        if(!moment(booking.checkOutDate).isSameOrAfter(moment(booking.checkInDate))){
-            setErrorMessage("Check-out date must come before check-in date")
+        if(!moment(booking.checkOutDate) .isSameOrAfter(moment(booking.checkInDate))){
+            setErrorMessage("Check-out date must come after check-in date")
             return false
         }else{
             setErrorMessage("")
@@ -90,20 +94,162 @@ const BookingForm = () => {
         try {
             const confirmationCode = await bookRoom(roomId,booking)
             setIsSubmitted(true)
-            navigate("/",{state:{message: confirmationCode}})
+            navigate("/bookingsuccess",{state:{message: confirmationCode}})
             
         } catch (error) {
             setErrorMessage(error.message)
-            navigate("/",{state:{error: errorMessage}})
+            navigate("/bookingsuccess",{state:{error: errorMessage}})
             
         }
 
     }
 
   return (
-    <div>
-      
+    <>
+    <div className='container mb-5'>
+        <div className='row'>
+            <div className='col-md-6'>
+                <div className='card card-body mt-5'>
+                    <h4 className='card card-title'>
+                        Reserve Room
+                    </h4>
+                    <Form noValidate validated={isValidated} onSubmit={handleSubmit}>
+                        <Form.Group>
+                            <Form.Label htmlFor="guestName">Full Name</Form.Label>
+                        
+                            <FormControl 
+                            required 
+                            type='text' 
+                            id="guestName" 
+                            name="guestName" 
+                            value={booking.guestName}
+                            placeholder='Enter your full name'
+                            onChange={handleInputChange}
+                            />
+                                <Form.Control.Feedback type="invalid">
+                                    Please enter your fullname
+                                </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Label htmlFor="guestEmail">Email</Form.Label>
+                        
+                            <FormControl 
+                            required 
+                            type='email' 
+                            id="guestEmail" 
+                            name="guestEmail" 
+                            value={booking.guestEmail}
+                            placeholder='Enter your Email'
+                            onChange={handleInputChange}
+                            />
+                                <Form.Control.Feedback type="invalid">
+                                    Please enter your email
+                                </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <fieldset style={{border:"2px"}}>
+                            <legend>Lodging period</legend>
+                            <div className='row'>
+                                <div className='col-6'>
+                                    <Form.Label htmlFor="checkInDate">
+                                        Check-In date : 
+                                    </Form.Label>
+                                    <FormControl 
+                                        required 
+                                        type='date' 
+                                        id="checkInDate" 
+                                        name="checkInDate" 
+                                        value={booking.checkInDate}
+                                        placeholder='check-in date'
+                                        onChange={handleInputChange}
+                                        />
+                                            <Form.Control.Feedback type="invalid">
+                                                Please select a check-in date
+                                    </Form.Control.Feedback>
+                                </div>
+
+                                <div className='col-6'>
+                                    <Form.Label htmlFor="checkOutDate">
+                                        Check-Out date : 
+                                    </Form.Label>
+                                    <FormControl 
+                                        required 
+                                        type='date' 
+                                        id="checkOutDate" 
+                                        name="checkOutDate" 
+                                        value={booking.checkOutDate}
+                                        placeholder='check-out date'
+                                        onChange={handleInputChange}
+                                        />
+                                    <Form.Control.Feedback type="invalid">
+                                                Please select a check-out date
+                                    </Form.Control.Feedback>
+                                </div>
+                                {errorMessage && <p className='error-message text-danger'>{errorMessage}</p>}
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Number of Guest</legend>
+                            <div className='row'>
+                                <div className='col-6'>
+                                    <Form.Label htmlFor="numberOfAdults">
+                                        Number of Adults : 
+                                    </Form.Label>
+                                    <FormControl 
+                                        required 
+                                        type='number' 
+                                        id="numberOfAdults" 
+                                        name="numberOfAdults" 
+                                        value={booking.numberOfAdults}
+                                        placeholder='0'
+                                        min={1}
+                                        onChange={handleInputChange}
+                                        />
+                                            <Form.Control.Feedback type="invalid">
+                                                Please select atleast 1 adult
+                                    </Form.Control.Feedback>
+                                </div>
+                                <div className='col-6'>
+                                    <Form.Label htmlFor="numberOfChildren">
+                                        Number of Children : 
+                                    </Form.Label>
+                                    <FormControl 
+                                        required 
+                                        type='number' 
+                                        id="numberOfChildren" 
+                                        name="numberOfChildren" 
+                                        value={booking.numberOfChildren}
+                                        placeholder='0'
+                                        
+                                        onChange={handleInputChange}
+                                        />
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div className='form-group mt-2 mb-2'>
+                            <button className='btn btn-hotel' type="submit">Continue </button>
+
+                        </div>
+                    </Form>
+                </div>
+            </div>
+            <div className='col-md-6'>
+                {isSubmitted && (
+                    <BookingSummary
+                        booking={booking}
+                        payment={calculatePayment}
+                        isFormValid={isValidated}
+                        onConfirm={handleBooking} 
+                    />
+                )}
+
+            </div>
+        </div>
     </div>
+    </>
   )
 }
 
