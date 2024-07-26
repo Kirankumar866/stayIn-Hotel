@@ -11,6 +11,8 @@ import RoomListing from './components/rooms/RoomListing.jsx'
 import Admin from './components/admin/Admin.jsx'
 import BookingSuccess from './components/bookings/BookingSuccess.jsx'
 import CheckOut from './components/bookings/CheckOut.jsx'
+import Bookings from './components/bookings/Bookings.jsx'
+import FindBookings from './components/bookings/FindBookings.jsx'
 
 function App() {
 
@@ -29,9 +31,11 @@ function App() {
           <Route path="/bookroom/:roomId" element={<CheckOut/>} />
           <Route path="/admin" element={<Admin />}/>
           <Route path="/bookingsuccess" element={<BookingSuccess/>} />
+          <Route path="/existingbookings" element={<Bookings/>} />
+          <Route path="/findbooking" element={<FindBookings/>} />
         </Routes>
       </Router>
-      <Footer/>
+      
     </main>
     
     

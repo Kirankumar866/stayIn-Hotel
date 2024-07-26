@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {Link} from "react-router-dom"
 import {getAllRooms} from "../utils/ApiFunction"
 import {Container,Carousel, Row, Col, Card} from "react-bootstrap"
+import Slider from "react-slick";
 
 const RoomCarousel = () => {
 
@@ -33,22 +34,22 @@ const RoomCarousel = () => {
   return (
     <section className='bg-light mb-5 mt-5 shadow'>
         <Link to={"/browseallrooms"} className='hotel-color text-center'>
-            Browse all rooms
+             Browse all rooms
         </Link>
 
         <Container>
-            <Carousel indicators={false} >
+            <Carousel controls={false} >
                 {[...Array(Math.ceil(rooms.length / 4))].map((_,index) =>(
-                    <Carousel.Item key={index} >
+                    <Carousel.Item key={index} interval={4000}>
                         <Row>
                             {rooms.slice(index * 4, index*4 + 4).map((room)=>(
                                 <Col key={room.id} className='mb-4' xs={12} md={6} lg={3}>
                                     <Card>
-                                        <Link to={`/bookroom/${room.id}`}>
+                                        <Link to={`/bookroom/${room.id}`} >
                                             <Card.Img variant='top' 
                                             src={`data:image/png;base64, ${room.photo}`}
                                             alt="room-photo"
-                                            className='w-100'
+                                            className="w-100"
                                             style={{height:"200px"}}
                                             />
                                         </Link>
@@ -59,14 +60,13 @@ const RoomCarousel = () => {
                                             <Card.Title className='room-price'>
                                                 {room.roomPrice}/Night
                                             </Card.Title>
-                                            <div className='flex-shrink-0'>
-                                                <Link className='btn btn-sm btn-hotel' to={`/bookroom/${room.id}`}>
+                                            <div className="flex-shrink-0">
+                                            <Link to={`/bookroom/${room.id}`} className="btn btn-hotel btn-sm">
                                                 Book Now
                                                 </Link>
                                             </div>
                                         </Card.Body>
                                     </Card>
-
 
                                 </Col>
                             ))}

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import { getRoomById } from '../utils/ApiFunction'
+import { getRoomById, bookRoom } from '../utils/ApiFunction'
 import moment from "moment"
 import { Form, FormControl } from 'react-bootstrap'
 import BookingSummary from './BookingSummary'
@@ -11,12 +11,12 @@ const BookingForm = () => {
     const [errorMessage, setErrorMessage] = useState("")
     const [roomPrice, setRoomPrice] = useState(0)
     const [booking,setBooking] = useState({
-        guestName:"",
+        guestFullName:"",
         guestEmail:"",
         checkInDate:"",
         checkOutDate:"",
-        numberOfAdults:"",
-        numberOfChildren:"",
+        numOfAdults:"",
+        numOfChildren:"",
     })
 
 
@@ -62,8 +62,8 @@ const BookingForm = () => {
     }
 
     const isGuestValid = ()=>{
-        const adultCount = parseInt(booking.numberOfAdults)
-        const childrenCount = parseInt(booking.numberOfChildren)
+        const adultCount = parseInt(booking.numOfAdults)
+        const childrenCount = parseInt(booking.numOfChildren)
         const totalCount = adultCount + childrenCount
 
         return totalCount >= 1 && adultCount >= 1
@@ -92,12 +92,14 @@ const BookingForm = () => {
 
     const handleBooking = async()=>{
         try {
+            console.log("b0oking", booking)
             const confirmationCode = await bookRoom(roomId,booking)
             setIsSubmitted(true)
             navigate("/bookingsuccess",{state:{message: confirmationCode}})
             
-        } catch (error) {
-            setErrorMessage(error.message)
+        } catch (e) {
+            console.log(e)
+            setErrorMessage(e)
             navigate("/bookingsuccess",{state:{error: errorMessage}})
             
         }
@@ -115,14 +117,14 @@ const BookingForm = () => {
                     </h4>
                     <Form noValidate validated={isValidated} onSubmit={handleSubmit}>
                         <Form.Group>
-                            <Form.Label htmlFor="guestName">Full Name</Form.Label>
+                            <Form.Label htmlFor="guestFullName">Full Name</Form.Label>
                         
                             <FormControl 
                             required 
                             type='text' 
-                            id="guestName" 
-                            name="guestName" 
-                            value={booking.guestName}
+                            id="guestFullName" 
+                            name="guestFullName" 
+                            value={booking.guestFullName}
                             placeholder='Enter your full name'
                             onChange={handleInputChange}
                             />
@@ -194,15 +196,15 @@ const BookingForm = () => {
                             <legend>Number of Guest</legend>
                             <div className='row'>
                                 <div className='col-6'>
-                                    <Form.Label htmlFor="numberOfAdults">
+                                    <Form.Label htmlFor="numOfAdults">
                                         Number of Adults : 
                                     </Form.Label>
                                     <FormControl 
                                         required 
                                         type='number' 
-                                        id="numberOfAdults" 
-                                        name="numberOfAdults" 
-                                        value={booking.numberOfAdults}
+                                        id="numOfAdults" 
+                                        name="numOfAdults" 
+                                        value={booking.numOfAdults}
                                         placeholder='0'
                                         min={1}
                                         onChange={handleInputChange}
@@ -212,15 +214,15 @@ const BookingForm = () => {
                                     </Form.Control.Feedback>
                                 </div>
                                 <div className='col-6'>
-                                    <Form.Label htmlFor="numberOfChildren">
+                                    <Form.Label htmlFor="numOfChildren">
                                         Number of Children : 
                                     </Form.Label>
                                     <FormControl 
                                         required 
                                         type='number' 
-                                        id="numberOfChildren" 
-                                        name="numberOfChildren" 
-                                        value={booking.numberOfChildren}
+                                        id="numOfChildren" 
+                                        name="numOfChildren" 
+                                        value={booking.numOfChildren}
                                         placeholder='0'
                                         
                                         onChange={handleInputChange}

@@ -127,14 +127,15 @@ export const getAllBookings = async()=>{
 /*This function gets booking by confirmation code */
 export const getBookingByConfirmationCode = async(confirmationCode)=>{
     try {
+        
         const result = await api.get(`/bookings/confirmation/${confirmationCode}`)
-        return result.data
+        return result
     } catch (error) {
-        if(error.response && error.response.data){
-            throw new Error(error.response.data)
-        }else{
-            throw new Error(`Error find booking : ${error.message}`)
-        }
+        if (error.response && error.response.data) {
+			throw new Error(error.response.data)
+		} else {
+			throw new Error(`Error find booking : ${error.message}`)
+		}
         
     }
 
