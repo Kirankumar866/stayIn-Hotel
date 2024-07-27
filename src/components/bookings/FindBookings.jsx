@@ -11,7 +11,7 @@ const FindBookings = () => {
         bookingConfirmationCode : "",
         roomNumber:"",
         checkInDate:"",
-        checkoutDate: "",
+        checkOutDate: "",
         guestFullName:"",
         guestEmail:"",
         numOfAdults:"",
@@ -27,7 +27,7 @@ const FindBookings = () => {
         bookingConfirmationCode : "",
         roomNumber:"",
         checkInDate:"",
-        checkoutDate: "",
+        checkOutDate: "",
         guestFullName:"",
         guestEmail:"",
         numOfAdults:"",
@@ -110,12 +110,13 @@ const FindBookings = () => {
                     <p>Booking ID : {bookingInfo.bookingId}</p>
                     <p>Room Number : {bookingInfo.room.id}</p>
                     <p>Check-In Date : {bookingInfo.checkInDate}</p>
-                    <p>Check-Out Date : {bookingInfo.checkoutDate}</p>
+                    <p>Check-Out Date : {bookingInfo.checkOutDate}</p>
                     <p>Full Name : {bookingInfo.guestFullName}</p>
                     <p>Email : {bookingInfo.guestEmail}</p>
                     <p>Adults : {bookingInfo.numOfAdults}</p>
                     <p>Children : {bookingInfo.numOfChildren}</p>
                     <p>Total Guest : {bookingInfo.totalNumofGuests}</p>
+
 
                     {!isDeleted && (
                         <button className='btn btn-danger' onClick={()=>handleBookingCancellation(bookingInfo.bookingId)}>

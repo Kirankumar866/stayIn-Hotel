@@ -10,7 +10,7 @@ const BookingsTable = ({ bookingInfo, handleBookingCancellation }) => {
     if (startDate && endDate) {
       filtered = bookingInfo.filter((booking) => {
         const bookingStartDate = parseISO(booking.checkInDate);
-        const bookingEndDate = parseISO(booking.checkoutDate);
+        const bookingEndDate = parseISO(booking.checkOutDate);
         return bookingStartDate >= startDate && bookingEndDate <= endDate;
       });
     }
@@ -48,7 +48,7 @@ const BookingsTable = ({ bookingInfo, handleBookingCancellation }) => {
               <td>{booking.bookingId}</td>
               <td>{booking.room.id}</td>
               <td>{booking.checkInDate}</td>
-              <td>{booking.checkoutDate}</td>
+              <td>{booking.checkOutDate}</td>
               <td>{booking.guestFullName}</td>
               <td>{booking.guestEmail}</td>
               <td>{booking.numOfAdults}</td>
