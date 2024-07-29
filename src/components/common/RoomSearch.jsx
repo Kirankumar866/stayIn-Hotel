@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import RoomTypeSelector from './RoomTypeSelector'
 import RoomSearchResult from './RoomSearchResult'
+import { getAvailableRooms } from '../utils/ApiFunction'
 
 const RoomSearch = () => {
     const [searchQuery, setSearchQuery] = useState({
@@ -15,40 +16,44 @@ const RoomSearch = () => {
     const [availableRooms, setAvailableRooms] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    const handleSearch = (e)=>{
+    const handleSearch = (e) => {
         e.preventDefault();
-        const checkIn = moment(searchQuery.checkInDate)
-        const checkOut = moment(searchQuery.checkOutDate)
-        if(!checkIn.isValid() || !checkOut.isValid()){
-            setErrorMessage("Please, enter valid date range")
-            return 
+        const checkInMoment = moment(searchQuery.checkInDate);
+        const checkOutMoment = moment(searchQuery.checkOutDate);
+        if (!checkInMoment.isValid() || !checkOutMoment.isValid()) {
+            setErrorMessage("Please enter valid dates");
+            return;
         }
-        if(!checkOut.isSameOrAfter(checkIn)){
-            setErrorMessage("Check-In date must come before check-out date")
-            return 
+        if (!checkOutMoment.isSameOrAfter(checkInMoment)) {
+            setErrorMessage("Check-out date must be after check-in date");
+            return;
         }
-        setIsLoading(true)
-        getAvailableRooms(searchQuery.checkInDate,
-            searchQuery.checkOutDate,
-            searchQuery.roomType).then((response)=>{
-                setAvailableRooms(response.data)
-                setTimeout(()=>{
-                    setIsLoading(false)
-                })
-            }).catch((e)=>{
-                console.error(error)
-            }).finally(()=>{
-                setIsLoading(false)
-            })
-    }
+        setIsLoading(true);
+        getAvailableRooms(
+            searchQuery.checkInDate.trim(),  // Trim date strings
+            searchQuery.checkOutDate.trim(),  // Trim date strings
+            searchQuery.roomType
+        ).then((response) => {
+            setAvailableRooms(response.data);
+            setTimeout(() => {
+                setIsLoading(false);
+            });
+        }).catch((error) => {
+            console.error(error);
+        }).finally(() => {
+            setIsLoading(false);
+        });
+    };
+    
 
     const handleInputChange = (e)=>{
-        const {name, value} = e.target
-        const checkIn = moment(searchQuery.checkInDate)
-        const checkOut = moment(searchQuery.checkOutDate)
-        if(checkIn.isValid() && checkOut.isValid()){
-            setErrorMessage("")
-        }
+        const { name, value } = e.target
+		setSearchQuery({ ...searchQuery, [name]: value })
+		const checkInDate = moment(searchQuery.checkInDate)
+		const checkOutDate = moment(searchQuery.checkOutDate)
+		if (checkInDate.isValid() && checkOutDate.isValid()) {
+			setErrorMessage("")
+		}
     }
 
     const clearSearch = ()=>{
@@ -58,6 +63,7 @@ const RoomSearch = () => {
             roomType : ""
         })
     }
+    
 
   return (
     <>

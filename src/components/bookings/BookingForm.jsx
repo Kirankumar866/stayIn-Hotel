@@ -90,17 +90,19 @@ const BookingForm = () => {
         setIsValidated(true)
     }
 
+    console.log(errorMessage)
+
     const handleBooking = async()=>{
         try {
-            console.log("b0oking", booking)
+            
             const confirmationCode = await bookRoom(roomId,booking)
             setIsSubmitted(true)
             navigate("/bookingsuccess",{state:{message: confirmationCode}})
             
-        } catch (e) {
-            console.log(e)
-            setErrorMessage(e)
-            navigate("/bookingsuccess",{state:{error: errorMessage}})
+        } catch (error) {
+            const errorMessage = error.message
+			console.log(errorMessage)
+			navigate("/booking-success",{state:{error: errorMessage}})
             
         }
 
@@ -155,7 +157,7 @@ const BookingForm = () => {
                             <div className='row'>
                                 <div className='col-6'>
                                     <Form.Label htmlFor="checkInDate">
-                                        Check-In date : 
+                                        Check-In date: 
                                     </Form.Label>
                                     <FormControl 
                                         required 
@@ -165,15 +167,16 @@ const BookingForm = () => {
                                         value={booking.checkInDate}
                                         placeholder='check-in date'
                                         onChange={handleInputChange}
+                                        min={moment().format("YYYY-MM-DD")}
                                         />
-                                            <Form.Control.Feedback type="invalid">
+                                    <Form.Control.Feedback type="invalid">
                                                 Please select a check-in date
                                     </Form.Control.Feedback>
                                 </div>
 
                                 <div className='col-6'>
                                     <Form.Label htmlFor="checkOutDate">
-                                        Check-Out date : 
+                                        Check-Outdate: 
                                     </Form.Label>
                                     <FormControl 
                                         required 
@@ -183,6 +186,7 @@ const BookingForm = () => {
                                         value={booking.checkOutDate}
                                         placeholder='check-out date'
                                         onChange={handleInputChange}
+                                        min={moment().format("YYYY-MM-DD")}
                                         />
                                     <Form.Control.Feedback type="invalid">
                                                 Please select a check-out date
@@ -197,7 +201,7 @@ const BookingForm = () => {
                             <div className='row'>
                                 <div className='col-6'>
                                     <Form.Label htmlFor="numOfAdults">
-                                        Number of Adults : 
+                                        No.of Adults : 
                                     </Form.Label>
                                     <FormControl 
                                         required 
@@ -215,7 +219,7 @@ const BookingForm = () => {
                                 </div>
                                 <div className='col-6'>
                                     <Form.Label htmlFor="numOfChildren">
-                                        Number of Children : 
+                                        No.of Children : 
                                     </Form.Label>
                                     <FormControl 
                                         required 
