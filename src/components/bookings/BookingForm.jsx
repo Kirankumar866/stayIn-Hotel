@@ -10,9 +10,12 @@ const BookingForm = () => {
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
     const [roomPrice, setRoomPrice] = useState(0)
+
+    const currentUser = localStorage.getItem("userId")
+
     const [booking,setBooking] = useState({
         guestFullName:"",
-        guestEmail:"",
+        guestEmail:currentUser,
         checkInDate:"",
         checkOutDate:"",
         numOfAdults:"",
@@ -94,17 +97,13 @@ const BookingForm = () => {
 
     const handleBooking = async()=>{
         try {
-            
-            const confirmationCode = await bookRoom(roomId,booking)
-            setIsSubmitted(true)
-            navigate("/bookingsuccess",{state:{message: confirmationCode}})
-            
-        } catch (error) {
-            const errorMessage = error.message
-			console.log(errorMessage)
-			navigate("/booking-success",{state:{error: errorMessage}})
-            
-        }
+			const confirmationCode = await bookRoom(roomId, booking)
+			setIsSubmitted(true)
+			navigate("/booking-success", { state: { message: confirmationCode } })
+		} catch (error) {
+			const errorMessage = error.message
+			navigate("/booking-success", { state: { error: errorMessage } })
+		}
 
     }
 

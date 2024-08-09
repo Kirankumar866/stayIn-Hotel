@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import Logout from '../auth/Logout';
+import { AuthContext } from '../auth/AuthProvider';
 
 const  NavBar = ()=> {
     const [showAccount,setShowAccount] = useState(false)
+
+    const {user} = useContext(AuthContext)
+
 
     const handleAccountClick = ()=>{
         setShowAccount(!showAccount)
     }
 
+    const isLoggedIn = user !== null
+    
+    const userRole = localStorage.getItem("userRole")
 
+
+
+    
   return (
     <nav className='navbar navbar-expand-lg bg-body-tertiary px-5 shadow mt-5 sticky-top'>
       <div className='container-fluid'>
@@ -32,11 +43,15 @@ const  NavBar = ()=> {
                 Browse all rooms
               </NavLink>
             </li>
-            <li className='nav-item'>
+            {isLoggedIn && userRole === "ROLE_ADMIN" && (
+              <li className='nav-item'>
               <NavLink className='nav-link' aria-current="page" to="/admin">
                 Admin
               </NavLink>
-            </li>
+              </li>
+
+            )}
+            
           </ul>
           <ul className='d-flex navbar-nav'>
             <li className='nav-item'>
@@ -58,14 +73,17 @@ const  NavBar = ()=> {
                 Account
               </a>
               <ul className='dropdown-menu' aria-labelledby="navbarDropdown">
-                <li>
+                {isLoggedIn ? (<li>
+                  <Logout/>
+                </li>) : (<li>
                   <Link className='dropdown-item' to="/login">Login</Link>
-                </li>
+                </li>)} 
+                
                 <li>
                   <Link className='dropdown-item' to="/profile">Profile</Link>
                 </li>
                 <li>
-                  <Link className='dropdown-item' to="/logout">Logout</Link>
+                  <Logout/>
                 </li>
               </ul>
             </li>
