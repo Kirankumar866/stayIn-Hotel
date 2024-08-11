@@ -22,7 +22,9 @@ export async function addRoom(photo,roomType,roomPrice){
     formData.append("roomType",roomType)
     formData.append("roomPrice", roomPrice)
 
-    const response = await api.post("/rooms/addnewroom",formData)
+    const response = await api.post("/rooms/addnewroom",formData,{
+        headers: getHeader()
+    })
     if(response.status === 201){
         return true
     }
@@ -64,7 +66,11 @@ export const getAllRooms = async()=>{
 /* This function deletes a room by Id */
 export const deleteRoom = async(roomId)=>{
     try {
-        const result = await api.delete(`/rooms/deleteroom/${roomId}`)
+        const result = await api.delete(`/rooms/deleteroom/${roomId}`,
+            {
+                headers: getHeader()
+            }
+        )
         return result.data
         
     } catch (error) {
@@ -80,7 +86,9 @@ export async function updateRoom(roomId, roomData){
     formData.append("roomType",roomData.roomType)
     formData.append("roomPrice",roomData.roomPrice)
     formData.append("photo",roomData.photo)
-    const response = await api.put(`/rooms/update/${roomId}`,formData)
+    const response = await api.put(`/rooms/update/${roomId}`,formData,{
+        headers: getHeader()
+    })
     return response
 }
 
@@ -103,8 +111,10 @@ export const bookRoom = async(roomId, booking)=>{
 
     try {
 		const response = await api.post(`/bookings/room/${roomId}/booking`, booking)
-		return response.data
+		console.log("response", response)
+        return response.data
 	} catch (error) {
+        console.log("error1",error)
 		if (error.response && error.response.data) {
 			throw new Error(error.response.data)
 		} else {
@@ -118,7 +128,9 @@ export const bookRoom = async(roomId, booking)=>{
 export const getAllBookings = async()=>{
 
     try {
-        const result = await api.get("/bookings/allbookings")
+        const result = await api.get("/bookings/allbookings",{
+            headers: getHeader()
+        })
 
         return result.data
 
@@ -217,7 +229,7 @@ export const loginUser = async(userDetails)=>{
 
 export const getUserProfile = async()=>{
     try {
-        const response = await api.get(`users/profile/${userId}`,{
+        const response = await api.get(`/users/profile/${userId}`,{
             headers : getHeader()
         })
         return response.data

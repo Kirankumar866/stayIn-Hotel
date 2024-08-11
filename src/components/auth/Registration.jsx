@@ -57,21 +57,22 @@ const Registration = () => {
                 <label htmlFor='firstName' className='col-sm-2 col-form-label'>
                 First Name
                 </label>
-                
+                <div>
                     <input id = "firstName" name="firstName" 
-                    type="text" className='form-caontrol'
+                    type="firstName" className='form-control'
                     value={userDetails.firstName}
                     onChange={handleInputChange}
                     />
-                
+                </div>
             </div>
+
             <div className='row mb-3'>
-                <label htmlFor='lastName' className='col-sm-2 col-form-label'>
+                <label htmlFor='lastName' className='col-sm-2 col-form-label' >
                 Last Name
                 </label>
                 <div>
                     <input id = "lastName" name="lastName" 
-                    type="text" className='form-caontrol'
+                    type="lastName" className='form-control'
                     value={userDetails.lastName}
                     onChange={handleInputChange}
                     />
@@ -83,7 +84,7 @@ const Registration = () => {
                 </label>
                 <div>
                     <input id = "email" name="email" 
-                    type="email" className='form-caontrol'
+                    type="email" className='form-control'
                     value={userDetails.email}
                     onChange={handleInputChange}
                     />

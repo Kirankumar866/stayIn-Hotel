@@ -13,13 +13,13 @@ const  NavBar = ()=> {
         setShowAccount(!showAccount)
     }
 
-    const isLoggedIn = user !== null
+    const isLoggedIn = localStorage.getItem("token")
     
     const userRole = localStorage.getItem("userRole")
 
 
 
-    
+    console.log(isLoggedIn ? "yes" : "no")
   return (
     <nav className='navbar navbar-expand-lg bg-body-tertiary px-5 shadow mt-5 sticky-top'>
       <div className='container-fluid'>
@@ -78,12 +78,8 @@ const  NavBar = ()=> {
                 </li>) : (<li>
                   <Link className='dropdown-item' to="/login">Login</Link>
                 </li>)} 
-                
                 <li>
                   <Link className='dropdown-item' to="/profile">Profile</Link>
-                </li>
-                <li>
-                  <Logout/>
                 </li>
               </ul>
             </li>

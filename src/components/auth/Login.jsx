@@ -53,12 +53,13 @@ const Login = () => {
                 </label>
                 <div>
                     <input id = "email" name="email" 
-                    type="email" className='form-caontrol'
+                    type="email" className='form-control'
                     value={login.email}
                     onChange={handleInputChange}
                     />
                 </div>
             </div>
+            
             <div className='row mb-3'>
                 <label htmlFor='password' className='col-sm-2 col-form-label'>
                 Password

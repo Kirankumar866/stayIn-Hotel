@@ -168,7 +168,7 @@ const Profile = () => {
 									<tbody>
 										{bookings.map((booking, index) => (
 											<tr key={index}>
-												<td>{booking.id}</td>
+												<td>{booking.bookingId}</td>
 												<td>{booking.room.id}</td>
 												<td>{booking.room.roomType}</td>
 												<td>
@@ -188,7 +188,6 @@ const Profile = () => {
 							) : (
 								<p>You have not made any bookings yet.</p>
 							)}
-
 							<div className="d-flex justify-content-center">
 								<div className="mx-2">
 									<button className="btn btn-danger btn-sm" onClick={handleDeleteAccount}>

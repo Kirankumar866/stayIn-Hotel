@@ -44,6 +44,7 @@ const FindBookings = () => {
         setIsLoading(true)
         try {
             const {data} = await getBookingByConfirmationCode(confirmationCode)
+            console.log(data)
             setBookingInfo(data)
             setErrorMessage(null)
 		} catch (error) {
@@ -109,9 +110,9 @@ const FindBookings = () => {
                     <p>Booking Confirmation Code : {bookingInfo.bookingConfirmationCode}</p>
                     <p>Booking ID : {bookingInfo.bookingId}</p>
                     <p>Room Number : {bookingInfo.room.id}</p>
-                    <p>Room Number : {bookingInfo.room.roomType}</p>
-                    <p>Check-In Date : {bookingInfo.checkInDate}</p>
-                    <p>Check-Out Date : {bookingInfo.checkOutDate}</p>
+                    <p>Room Type : {bookingInfo.room.roomType}</p>
+                    <p>Check-In Date : {bookingInfo.checkInDate[0]}-{bookingInfo.checkInDate[1]}-{bookingInfo.checkInDate[2]}</p>
+                    <p>Check-Out Date : {bookingInfo.checkOutDate[0]}-{bookingInfo.checkOutDate[1]}-{bookingInfo.checkOutDate[2]}</p>
                     <p>Full Name : {bookingInfo.guestFullName}</p>
                     <p>Email : {bookingInfo.guestEmail}</p>
                     <p>Adults : {bookingInfo.numOfAdults}</p>
