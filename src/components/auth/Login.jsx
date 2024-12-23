@@ -36,7 +36,7 @@ const Login = () => {
         }
 
         setTimeout(()=>{
-            setErrorMessage("")
+            setErrorMessage("");
         },4000)
     }
 

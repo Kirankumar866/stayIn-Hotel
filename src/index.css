@@ -1,228 +1,303 @@
+:root {
+  --primary-color: #2D3047;
+  --accent-color: #FF6B6B;
+  --text-color: #333;
+  --light-bg: #f8f9fa;
+  --transition: all 0.3s ease-in-out;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
 body {
   min-height: 100vh;
-  
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
+
+/* Modern Card Styling */
 .card {
-  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
 }
 
-/* Navigation bar definitions */
- .navbar{
-  padding: 0;
-  
- }
- .navbar .navbar-nav .nav-link{
-  padding: 1em;
- }
- .navbar .navbar-nav .nav-item{
-  position: relative;
- }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
 
- .navbar .navbar-nav .nav-item::after{
+/* Enhanced Navigation */
+.navbar {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 1rem 2rem;
+}
+
+.navbar .navbar-nav .nav-link {
+  color: var(--text-color);
+  font-weight: 500;
+  padding: 0.7em 1.2em;
+  border-radius: 6px;
+  transition: var(--transition);
+}
+
+.navbar .navbar-nav .nav-item {
+  position: relative;
+  margin: 0 0.3em;
+}
+
+.navbar .navbar-nav .nav-item::after {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   content: '';
-  background-color:rgb(169, 77, 123) ;
+  background-color: var(--accent-color);
+  height: 3px;
   width: 0;
-  margin: 0 auto;
-  height: 4px;
-  transition: all .5s;
- }
- .navbar .navbar-nav .nav-item:hover::after{
+  border-radius: 3px;
+  transition: var(--transition);
+}
+
+.navbar .navbar-nav .nav-item:hover::after {
   width: 100%;
- }
- .navbar-dark .navbar-nav .nav-link {
-  color: rgb(25, 24, 24);
 }
 
-.navbar-dark .navbar-brand {
-  color: rgb(25, 24, 24);
+.navbar .navbar-nav .nav-link:hover {
+  color: var(--accent-color);
+  background: rgba(255, 107, 107, 0.1);
 }
 
- @media screen and (min-width: 992px){
-  .navbar{
-  padding: 0;
- }
- .navbar .navbar-nav .nav-link{
-  padding: 1em 0;
- }
- .navbar .navbar-nav .nav-item{
-  margin: 0 1em;
- }
- }
+/* Modern Button Styling */
+.btn-hotel {
+  background-color: var(--accent-color);
+  color: white;
+  border-radius: 8px;
+  padding: 0.8em 1.8em;
+  font-weight: 600;
+  border: none;
+  transition: var(--transition);
+}
 
-  /* Hotel custom color */
- .btn-hotel{
-  background-color: rgb(169, 77, 123);
-  color: #fff;
-  }
-  .btn-hotel:hover{
-  background-color: rgb(137, 127, 132);
-  color: #fff;
-  transition: 0.7s;
-  outline-color: transparent;
-  outline-style:solid;
+.btn-hotel:hover {
+  background-color: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
 
-  }
-
-  .hotel-color{
-    color: rgb(169, 77, 123);
-  }
-  .room-price{
-    color:darkgoldenrod;
-    font-family: 'Courier New', Courier, monospace;
-    font-size:medium;
-  }
-  .vertical-rule{
-    border-left: '0.5px solid black';
-    height: '100vh'
-  }
-
-
-
+/* Enhanced Parallax Effect */
 .parallax {
-  background-image: url("./assets/steven-van-elk-1CcryZiF2PA-unsplash.jpg");
+  background-image: url('assets/slidingHeader.jpg');
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 40vh;
-}
-
-.header {
+  height: 60vh;
   position: relative;
-  height: 150px;
-  background-size: cover;
-  background-image: url("./assets/christiann-koepke-dQyS2pMYtok-unsplash.jpg");
-  background-position: center center;
-}
-.header-title {
-  color: #fff;
-  opacity: 0.3;
-  
-  font-size: 4rem;
-  align-content: center;
-}
-
-.parallax {
-  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
-  text-shadow: 2px 2px black;
 }
 
+.parallax::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(0,0,0,0.2), rgba(0,0,0,0.1));
+}
+
+/* Modern Header Styling */
+.header {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  background-image: url('./assets/ourserviceHeader.jpg');
+}
+
+
+.header-title {
+  color: white;
+  font-weight: 800;
+  font-size: 3.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Enhanced Animation Effects */
 .animated {
-  animation-duration: 1s;
-}
-
-.animated-texts h1 {
-  animation: fadeInDown 1s ease-in-out;
-}
-
-.animated-texts p, h1, h2 {
-  animation: fadeInUp 1s ease-in-out;
-}
-
-@keyframes bounceIn {
-  from, 20%, 40%, 60%, 80%, to {
-    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    transform: translate3d(0,0,0);
-  }
-
-  40%, 60% {
-    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
-    transform: translate3d(0, -30px, 0);
-  }
-
-  70% {
-    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
-    transform: translate3d(0, -15px, 0);
-  }
-
-  90% {
-    transform: translate3d(0,-4px,0);
-  }
-}
-
-.bounceIn {
-  animation-name: bounceIn;
-}
-
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -50%, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
+  animation-duration: 0.8s;
+  animation-fill-mode: both;
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translate3d(0, 50%, 0);
+    transform: translate3d(0, 30px, 0);
   }
-
   to {
     opacity: 1;
-    transform: none;
+    transform: translate3d(0, 0, 0);
   }
 }
-/* Header overlay */
-  .overlay {
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Modern Header Banner */
+.header-banner {
+  height: 80vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('./assets/bannerHeader.jpg');
+}
+
+.header-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+}
+
+/* Overlay Styles */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* Modern Footer */
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+/* Utility Classes */
+.hotel-color {
+  color: var(--accent-color);
+}
+
+.room-price {
+  color: #FFD700;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.vertical-rule {
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+  height: 100%;
+  margin: 0 15px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 992px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+  
+  .header-title {
+    font-size: 2.5rem;
+  }
+  
+  .header-banner {
+    height: 60vh;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-title {
+    font-size: 2rem;
+  }
+  
+  .parallax {
+    height: 40vh;
+  }
+}
+
+
+.admin-btn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.admin-btn::after {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  .overlay-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-     transform: translate(-50%, -50%);
-    color: #fff;
-    justify-content: flex-start;
-  }
-
-/* The header banner */
-.header-banner {
-  background-image:  url("./assets/valeriia-bugaiova-_pPHgeHz1uk-unsplash.jpg");
-   background-size: cover;
-  background-position: center;
-   position: relative;
-  height: 80vh;
- }
-
-.header-banner {
-  position: relative;
-  height: 500px;
+    background: rgba(255,255,255,0.1);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
 }
 
-@media only screen and (max-width: 768px) {
-  .header-banner h1 {
-    font-size: 20px;
-  }
+.admin-btn:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
-@media only screen and (max-width: 480px) {
-  .header-banner h1 {
-    font-size: 16px;
-  }
+/* Specific hover colors for each button */
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
 }
 
- .footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #f5f5f5;
-  height: 60px;
-  text-align: center;
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #218838;
 }
