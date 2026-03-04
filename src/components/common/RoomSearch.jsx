@@ -4,6 +4,7 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import RoomTypeSelector from './RoomTypeSelector'
 import RoomSearchResult from './RoomSearchResult'
 import { getAvailableRooms } from '../utils/ApiFunction'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const RoomSearch = () => {
     const [searchQuery, setSearchQuery] = useState({
@@ -40,6 +41,7 @@ const RoomSearch = () => {
             });
         }).catch((error) => {
             console.error(error);
+            setErrorMessage("Network error: Could not fetch rooms. Please try again.");
         }).finally(() => {
             setIsLoading(false);
         });
@@ -114,15 +116,34 @@ const RoomSearch = () => {
                 </Form>
 
                 {isLoading ? (
-                    <p className="mt-4 text-center">Finding available rooms...</p>
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="mt-4 text-center text-secondary"
+                    >
+                        Finding available rooms...
+                    </motion.p>
                 ) : (
-                    availableRooms ? (
+                    availableRooms && availableRooms.length > 0 ? (
                         <RoomSearchResult onClearSearch={clearSearch} results={availableRooms} />
                     ) : (
-                        <p className="mt-4 text-center">No rooms available for the selected dates and room type</p>
+                        <p className="mt-4 text-center text-secondary">No rooms available for the selected dates and room type</p>
                     )
                 )}
-                {errorMessage && <p className='text-danger mt-3 text-center'>{errorMessage}</p>}
+
+                <AnimatePresence>
+                    {errorMessage && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.3 }}
+                            className='mt-4 p-3 rounded bg-danger bg-opacity-10 border border-danger text-danger text-center shadow-sm'
+                        >
+                            <strong>⚠️ Oops!</strong> {errorMessage}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </>
     )
