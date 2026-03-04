@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import RoomTypeSelector from './RoomTypeSelector'
 import RoomSearchResult from './RoomSearchResult'
@@ -7,9 +7,9 @@ import { getAvailableRooms } from '../utils/ApiFunction'
 
 const RoomSearch = () => {
     const [searchQuery, setSearchQuery] = useState({
-        checkInDate : "",
-        checkOutDate : "",
-        roomType : ""
+        checkInDate: "",
+        checkOutDate: "",
+        roomType: ""
     })
 
     const [errorMessage, setErrorMessage] = useState("")
@@ -44,90 +44,88 @@ const RoomSearch = () => {
             setIsLoading(false);
         });
     };
-    
 
-    const handleInputChange = (e)=>{
+
+    const handleInputChange = (e) => {
         const { name, value } = e.target
-		setSearchQuery({ ...searchQuery, [name]: value })
-		const checkInDate = moment(searchQuery.checkInDate)
-		const checkOutDate = moment(searchQuery.checkOutDate)
-		if (checkInDate.isValid() && checkOutDate.isValid()) {
-			setErrorMessage("")
-		}
+        setSearchQuery({ ...searchQuery, [name]: value })
+        const checkInDate = moment(searchQuery.checkInDate)
+        const checkOutDate = moment(searchQuery.checkOutDate)
+        if (checkInDate.isValid() && checkOutDate.isValid()) {
+            setErrorMessage("")
+        }
     }
 
-    const clearSearch = ()=>{
+    const clearSearch = () => {
         setSearchQuery({
-            checkInDate : "",
+            checkInDate: "",
             checkOutDate: "",
-            roomType : ""
+            roomType: ""
         })
     }
-    
-
-  return (
-    <>
-    <Container className='mt-5 mb-5 py-5 shadow'>
-        <Form onSubmit={handleSearch}>
-            <Row className='justify-content-center'>
-                <Col xs={12} md={3}>
-                    <Form.Group controlId='checkInDate'>
-                        <Form.Label>Check-in date </Form.Label>
-                        <Form.Control
-                        type='date'
-                        name = 'checkInDate'
-                        value={searchQuery.checkInDate}
-                        onChange={handleInputChange}
-                        min={moment().format("YYYY-MM-DD")}
-                        />   
-                    </Form.Group>
-                </Col>
-
-                <Col xs={12} md={3}>
-                    <Form.Group controlId='checkOutDate'>
-                        <Form.Label>Check-out date </Form.Label>
-                        <Form.Control
-                        type='date'
-                        name = 'checkOutDate'
-                        value={searchQuery.checkOutDate}
-                        onChange={handleInputChange}
-                        min={moment().format("YYYY-MM-DD")}
-                        />   
-                    </Form.Group>
-                </Col>
-                <Col xs={12} md={6}>
-                    <Form.Group>
-                        <Form.Label>Room Type</Form.Label>
-                        <div className='d-flex mr-2'>
-                            <RoomTypeSelector 
-                            handleRoomInputChange={handleInputChange} 
-                            newRoom={searchQuery}  />
-                            <Button variant="secondary" type="submit">Search</Button>
 
 
-                        </div>
-                        
-                          
-                    </Form.Group>
-                </Col>
-                
+    return (
+        <>
+            <div className='search-floating-card'>
+                <Form onSubmit={handleSearch}>
+                    <Row className='justify-content-center align-items-end'>
+                        <Col xs={12} md={4}>
+                            <Form.Group controlId='checkInDate' className='mb-3 mb-md-0'>
+                                <Form.Label className="text-secondary small text-uppercase tracking-wider">Check-in date</Form.Label>
+                                <Form.Control
+                                    type='date'
+                                    name='checkInDate'
+                                    value={searchQuery.checkInDate}
+                                    onChange={handleInputChange}
+                                    min={moment().format("YYYY-MM-DD")}
+                                    className="py-2 rounded-3 border-0 shadow-sm"
+                                    style={{ backgroundColor: 'rgba(255,255,255,0.7)' }}
+                                />
+                            </Form.Group>
+                        </Col>
 
-            </Row>
-        </Form>
+                        <Col xs={12} md={4}>
+                            <Form.Group controlId='checkOutDate' className='mb-3 mb-md-0'>
+                                <Form.Label className="text-secondary small text-uppercase tracking-wider">Check-out date</Form.Label>
+                                <Form.Control
+                                    type='date'
+                                    name='checkOutDate'
+                                    value={searchQuery.checkOutDate}
+                                    onChange={handleInputChange}
+                                    min={moment().format("YYYY-MM-DD")}
+                                    className="py-2 rounded-3 border-0 shadow-sm"
+                                    style={{ backgroundColor: 'rgba(255,255,255,0.7)' }}
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col xs={12} md={4}>
+                            <Form.Group>
+                                <Form.Label className="text-secondary small text-uppercase tracking-wider">Room Type</Form.Label>
+                                <div className='d-flex gap-2'>
+                                    <RoomTypeSelector
+                                        handleRoomInputChange={handleInputChange}
+                                        newRoom={searchQuery} />
+                                    <Button type="submit" className="btn-hotel flex-shrink-0">Search</Button>
+                                </div>
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                </Form>
 
-        {isLoading ? (
-            <p>finding available rooms ....</p>
-        ):(
-            availableRooms ? (
-                <RoomSearchResult onClearSearch={clearSearch} results={availableRooms}/>
-            ): (
-                <p>No rooms available for the selected dates and room type</p>
-            )
-        ) }
-        {errorMessage && <p className='text-danger'>{errorMessage}</p>}
-    </Container>
-    </>
-  )
+                {isLoading ? (
+                    <p className="mt-4 text-center">Finding available rooms...</p>
+                ) : (
+                    availableRooms ? (
+                        <RoomSearchResult onClearSearch={clearSearch} results={availableRooms} />
+                    ) : (
+                        <p className="mt-4 text-center">No rooms available for the selected dates and room type</p>
+                    )
+                )}
+                {errorMessage && <p className='text-danger mt-3 text-center'>{errorMessage}</p>}
+            </div>
+        </>
+    )
 }
 
 export default RoomSearch
